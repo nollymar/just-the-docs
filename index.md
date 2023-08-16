@@ -12,7 +12,7 @@ Here I'll explain how the tool can be used
 The CLI is a quarkus/pico-cli project that depends on module api-data-module for which that dependency should have been built already see top level read-me for more details on how to build this entire project.  
 Assuming the that api-data-module has been built already    
 
-```shell script
+```markdown
 # from top level to build all
 ../mvnw clean install
 ```
@@ -23,7 +23,7 @@ First Start a dotCMS instance locally. The CLI is a client program designed to s
 
 ## Running The CLI in dev mode
 
-```shell script
+```markdown
 # from top level to build all
 cd cli
 # command is same as the following to run the quarkus build plugin
@@ -39,7 +39,7 @@ Once the cli is launched in dev mode it'll print out a list of available command
 
 followed by 
 
-```shell script
+```markdown
 --
 Tests paused
 Press [space] to restart, [e] to edit command line args (currently ''), [r] to resume testing, [o] Toggle test output, [:] for the terminal, [h] for more options>
@@ -47,7 +47,7 @@ Press [space] to restart, [e] to edit command line args (currently ''), [r] to r
 These are quarkus offered options. 
 Now in order to see the CLI in action you need to edit the command line arguments and introduce the cli command and arguments of choice. for example.
 
-```shell script
+```markdown
 --
 Tests paused
 status
@@ -56,7 +56,7 @@ Which provides you with a quick summary of your status as user.
 
 or
 
-```shell script
+```markdown
 --
 Tests paused
 login --user=admin@dotCMS.com --password=admin
@@ -65,7 +65,7 @@ Which allows you to login against an environment.
 
 Now you're probably asking your self how do I instruct the cli what instance of dotCMS I'm running against.
 
-```shell script
+```markdown
 --
 Tests paused
 instance --list
@@ -77,7 +77,7 @@ a list of all available commands will appear upon executing the cli with no argu
 
 We can also instruct Quarkus dev mode to launch our cli using a preconfigured param by doing 
 
-```shell script
+```markdown
 mvn quarkus:dev -Dquarkus.args=status
 ```
 This will launch the cli passing directly into it the arguments that tell them to execute the command status
@@ -86,16 +86,16 @@ This will launch the cli passing directly into it the arguments that tell them t
 
 In order to generate the cli as a jar packed with all necessary dependencies you need to do
 
-```shell script
+```markdown
 ./mvnw clean install package
 ```
 all the commands used above can be applied directly to the generated jar which can be found under 
 
-```shell script
+```markdown
 ./cli/target/quarkus-app/
 ```
 Like this 
 
-```shell script
+```markdown
 java -jar ./cli/target/quarkus-app/quarkus-run.jar status
 ```
