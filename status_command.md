@@ -10,7 +10,7 @@ nav_order: 1
 Status is how you determine what dotCMS instance you are connected to
 Also tells you if your currently logged in that selected instance
 
-```shell script
+```markdown
    dotCMS status  
 ```
 

@@ -9,7 +9,7 @@ nav_order: 3
 
 Instance allows the activation of a dotCMS instance profile
 to get a list with all available profiles do:
-```shell script
+```markdown
    dotCMS instance  
 ```
 
@@ -20,7 +20,7 @@ Available registered dotCMS servers.
 ```
 
 From the list of available instances select one and then activate it using the activate option like this
-```shell script
+```markdown
 instance --activate demo
 ```
 
