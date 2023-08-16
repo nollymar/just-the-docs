@@ -1,33 +1,101 @@
 ---
-title: Home
-layout: home
-nav_exclude: true
+layout: page
+title: "dotCMS CLI"
+nav_order: 1
 ---
 
-This is a *bare-minimum* template to create a Jekyll site that uses the [Just the Docs] theme. You can easily set the created site to be published on [GitHub Pages] – the [README] file explains how to do that, along with other details.
+# dotCMS CLI 
 
-If [Jekyll] is installed on your computer, you can also build and preview the created site *locally*. This lets you test changes before committing them, and avoids waiting for GitHub Pages.[^1] And you will be able to deploy your local build to a different platform than GitHub Pages.
+Welcome to the cli readme   
+Here I'll explain how the tool can be used
 
-More specifically, the created site:
+The CLI is a quarkus/pico-cli project that depends on module api-data-module for which that dependency should have been built already see top level read-me for more details on how to build this entire project.  
+Assuming the that api-data-module has been built already    
 
-- uses a gem-based approach, i.e. uses a `Gemfile` and loads the `just-the-docs` gem
-- uses the [GitHub Pages / Actions workflow] to build and publish the site on GitHub Pages
+```shell script
+# from top level to build all
+../mvnw clean install
+```
 
-Other than that, you're free to customize sites that you create with this template, however you like. You can easily change the versions of `just-the-docs` and Jekyll it uses, as well as adding further plugins.
+To run cli. 
 
-[Browse our documentation][Just the Docs] to learn more about how to use this theme.
+First Start a dotCMS instance locally. The CLI is a client program designed to simplify access to dotCMS content services. So we're going to need a running instance of dotCMS to point our client to  
 
-To get started with creating a site, just click "[use this template]"!
+## Running The CLI in dev mode
 
-If you want to maintain your docs in the `docs` directory of an existing project repo, see [Hosting your docs from an existing project repo](https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md#hosting-your-docs-from-an-existing-project-repo) in the template README.
+```shell script
+# from top level to build all
+cd cli
+# command is same as the following to run the quarkus build plugin
+# ../mvnw quarkus:dev 
+quarkus dev
+```
+By executing the command described above we launch the cli within Quarkus dev environment 
+Meaning we can perform changes to our sources and see them reflected live. So be mindful about it.
+This is the only quarkus module within our project so any attempt to run mvnw quarkus:dev 
+in any other module is going to result in failure and that is expected
 
-----
+Once the cli is launched in dev mode it'll print out a list of available commands.
 
-[^1]: [It can take up to 10 minutes for changes to your site to publish after you push the changes to GitHub](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll#creating-your-site).
+followed by 
 
-[Just the Docs]: https://just-the-docs.github.io/just-the-docs/
-[GitHub Pages]: https://docs.github.com/en/pages
-[README]: https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md
-[Jekyll]: https://jekyllrb.com
-[GitHub Pages / Actions workflow]: https://github.blog/changelog/2022-07-27-github-pages-custom-github-actions-workflows-beta/
-[use this template]: https://github.com/just-the-docs/just-the-docs-template/generate
+```shell script
+--
+Tests paused
+Press [space] to restart, [e] to edit command line args (currently ''), [r] to resume testing, [o] Toggle test output, [:] for the terminal, [h] for more options>
+```
+These are quarkus offered options. 
+Now in order to see the CLI in action you need to edit the command line arguments and introduce the cli command and arguments of choice. for example.
+
+```shell script
+--
+Tests paused
+status
+```
+Which provides you with a quick summary of your status as user. 
+
+or
+
+```shell script
+--
+Tests paused
+login --user=admin@dotCMS.com --password=admin
+```
+Which allows you to login against an environment. 
+
+Now you're probably asking your self how do I instruct the cli what instance of dotCMS I'm running against.
+
+```shell script
+--
+Tests paused
+instance --list
+```
+Which allows you to list and select the dotCMS instance we want to run against
+
+in order to see all available command options simply introduce the command name followed by --help
+a list of all available commands will appear upon executing the cli with no arguments 
+
+We can also instruct Quarkus dev mode to launch our cli using a preconfigured param by doing 
+
+```shell script
+mvn quarkus:dev -Dquarkus.args=status
+```
+This will launch the cli passing directly into it the arguments that tell them to execute the command status
+
+## Running The CLI as a jar
+
+In order to generate the cli as a jar packed with all necessary dependencies you need to do
+
+```shell script
+./mvnw clean install package
+```
+all the commands used above can be applied directly to the generated jar which can be found under 
+
+```shell script
+./cli/target/quarkus-app/
+```
+Like this 
+
+```shell script
+java -jar ./cli/target/quarkus-app/quarkus-run.jar status
+```
